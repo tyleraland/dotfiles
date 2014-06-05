@@ -5,6 +5,9 @@ ps cx | grep ssh-agent > /dev/null
 if [ $? -ne 0 ]; then
     eval $(ssh-agent) > /dev/null
     ssh-add
+    if [ -f ~/.ssh/github_rsa ]; then
+        ssh-add ~/.ssh/github_rsa
+    fi
 fi
 
 if [ -f ~/.bashrc ]; then
