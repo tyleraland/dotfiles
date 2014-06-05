@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/Users/tylerland/mnt'
+let g:netrw_dirhist_2='/Users/tylerland/.vim/bundle/nerdtree'
+let g:netrw_dirhist_3='/Users/tylerland/.vim'
+let g:netrw_dirhist_4='/Users/tylerland/.dropbox'
+let g:netrw_dirhist_5='/Users/tylerland/.ipython'
+let g:netrw_dirhist_6='/Users/tylerland/.irssi'
+let g:netrw_dirhist_7='/Users/tylerland/.vagrant.d'

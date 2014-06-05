@@ -5,4 +5,5 @@ gitconfig
 inputrc
 slate
 tmux.conf
+vim
 vimrc

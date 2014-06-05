@@ -14,9 +14,13 @@ files=$(cat Manifest)
 # Back up previous dotfiles and install files from manifest
 mkdir -p $BAK
 for file in $files; do
-    # Only backup file if it is a real file and not a symlink
-    if [ -f ~/.$file ] && [ ! -h ~/.$file ]; then
+    # Only backup file if it is an existing file/dir and not a symlink
+    if [[ ( -f ~/.$file || -d ~/.$file ) && ! -h ~/.$file ]]; then
         mv ~/.$file $BAK/$file.old
     fi
-    echo ln -sf $SRC/$file ~/.$file
+    if [ -f $SRC/$file ]; then
+        ln -sf $SRC/$file ~/.$file
+    elif [ -d $SRC/$file ]; then
+        ln -sF $SRC/$file ~/.$file
+    fi
 done
