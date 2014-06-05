@@ -15,8 +15,8 @@ files=$(cat Manifest)
 mkdir -p $BAK
 for file in $files; do
     # Only backup file if it is a real file and not a symlink
-    if [ ! -h ~/.$file ]; then
+    if [ -f ~/.$file ] && [ ! -h ~/.$file ]; then
         mv ~/.$file $BAK/$file.old
     fi
-    ln -s $SRC/$file ~/.$file
+    echo ln -sf $SRC/$file ~/.$file
 done
