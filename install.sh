@@ -21,6 +21,11 @@ for file in $files; do
     if [ -f $SRC/$file ]; then
         ln -sf $SRC/$file ~/.$file
     elif [ -d $SRC/$file ]; then
+        rm ~/.$file
         ln -sF $SRC/$file ~/.$file
     fi
 done
+
+if [ -d $SRC/vim/bundle/ ]; then
+    git clone https://github.com/altercation/vim-colors-solarized $SRC/vim/bundle/vim-colors-solarized
+fi
