@@ -9,7 +9,7 @@
 # Note that now the script's cwd
 SRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BAK=$SRC/.backup
-files=$(cat Manifest)
+files=$(cat $SRC/Manifest)
 
 # Back up previous dotfiles and install files from manifest
 mkdir -p $BAK
