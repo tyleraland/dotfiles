@@ -26,6 +26,6 @@ for file in $files; do
     fi
 done
 
-if [ -d $SRC/vim/bundle/ ]; then
+if [[ -d $SRC/vim/bundle/ && ! -d $SRC/vim/bundle/vim-colors-solarized ]]; then
     git clone https://github.com/altercation/vim-colors-solarized $SRC/vim/bundle/vim-colors-solarized
 fi
