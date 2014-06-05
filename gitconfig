@@ -1,0 +1,10 @@
+[user]
+	name = Tyler A Land
+	email = tland9@uw.edu
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
+[color]
+	branch = auto
+	status = auto

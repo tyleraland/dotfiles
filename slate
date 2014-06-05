@@ -1,0 +1,29 @@
+config defaultToCurrentScreen true
+config nudgePercentOf screenSize
+config resizePercentOf screenSize
+
+# Window Hints
+#bind esc:cmd hint
+
+bind q:ctrl,cmd relaunch
+
+# Chains between full-screen | vertical half-screen | quarter screen | horizontal half-screen
+bind r:ctrl,cmd chain move windowTopLeftX,windowTopLeftY screenSizeX,screenSizeY | move windowTopLeftX,windowTopLeftY screenSizeX/2,screenSizeY | move windowTopLeftX,windowTopLeftY screenSizeX/2,screenSizeY/2 | move windowTopLeftX,windowTopLeftY screenSizeX,screenSizeY/2 
+
+# h,j,k,l moves the window to the edge
+bind h:ctrl,cmd push left
+bind j:ctrl,cmd push down
+bind k:ctrl,cmd push up
+bind l:ctrl,cmd push right
+
+bind m:ctrl,cmd hide 'current'
+
+bind i:ctrl,cmd focus 'iTerm'
+bind y:ctrl,cmd focus 'Google Chrome'
+bind o:ctrl,cmd focus 'Evernote'
+bind f:ctrl,cmd focus 'Finder'
+bind u:ctrl,cmd focus 'Spotify'
+bind p:ctrl,cmd focus 'Preview'
+bind s:ctrl,cmd focus 'Stickies'
+bind ;:ctrl,cmd focus 'Thunderbird'
+bind ,:ctrl,cmd focus 'Adium'
