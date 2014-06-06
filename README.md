@@ -1,5 +1,5 @@
 dotfiles
 ========
-<h1>
+<h2>
 Tips and tricks
-</h1>
+</h2>
