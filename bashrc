@@ -143,7 +143,6 @@ if [ ! -z "$SSH_TTY" ]; then # We logged in via SSH
     for key in id_rsa github_rsa; do
         ssh-add -l | grep "$key" > /dev/null
         if [ $? -ne 0 ]; then
-            echo "$key not found.  Adding"
             ssh-add ~/.ssh/$key
         fi
     done
