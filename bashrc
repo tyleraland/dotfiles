@@ -125,4 +125,28 @@ PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[1
 
 if [[ $(hostname) == "Euler.local" ]]; then
     PATH=/Users/tal/anaconda/bin:$PATH
+
+# This block keeps ssh-agent persistent, even throughout tmux sessions
+# we're not in a tmux session
+if [ ! -z "$SSH_TTY" ]; then # We logged in via SSH
+    # if ssh auth variable is missing
+    if [ -z "$SSH_AUTH_SOCK" ]; then
+        export SSH_AUTH_SOCK="$HOME/.ssh/.auth_socket"
+    fi
+    # if socket is available create the new auth session
+    if [ ! -S "$SSH_AUTH_SOCK" ]; then
+        `ssh-agent -a $SSH_AUTH_SOCK` > /dev/null 2>&1
+        echo $SSH_AGENT_PID > $HOME/.ssh/.auth_pid
+    fi
+    # if agent isn't defined, recreate it from pid file
+    if [ -z $SSH_AGENT_PID ]; then
+        export SSH_AGENT_PID=`cat $HOME/.ssh/.auth_pid`
+    fi
+    # Add keys to ssh auth
+    for key in id_rsa github_rsa; do
+        ssh-add -l | grep "$key" > /dev/null
+        if [ $? -ne 0 ]; then
+            ssh-add ~/.ssh/$key
+        fi
+    done
 fi
