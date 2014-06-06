@@ -4,8 +4,8 @@
 [core]
 	editor = vim
     ignorecase = true
+    pager = view
 [merge]
 	tool = vimdiff
 [color]
-	branch = auto
-	status = auto
+    ui = true
