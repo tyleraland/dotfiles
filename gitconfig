@@ -3,6 +3,7 @@
 	email = tland9@uw.edu
 [core]
 	editor = vim
+    ignorecase = true
 [merge]
 	tool = vimdiff
 [color]
