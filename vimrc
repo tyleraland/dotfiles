@@ -19,6 +19,7 @@ if has("autocmd")
     " These files are fussy about tabs versus spaces
     autocmd FileType make setlocal sw=8 sts=8 ts=8 noexpandtab
     autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
     " SConstruct is just python
     autocmd BufNewFile,BufRead SConstruct setfiletype python
 endif
