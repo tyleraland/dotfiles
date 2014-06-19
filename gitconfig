@@ -4,7 +4,6 @@
 [core]
 	editor = vim
     ignorecase = true
-    pager = view
 [merge]
 	tool = vimdiff
 [color]
