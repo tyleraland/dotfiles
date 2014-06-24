@@ -3,6 +3,7 @@ bashrc
 git-completion.sh
 gitconfig
 inputrc
+pylintrc
 slate
 tmux.conf
 vim

@@ -1,1 +1,5 @@
+*~
+*.swp
 .netrwhist
+vim/.netrwhist*
+vim/bundle/vim-colors-solarized/
