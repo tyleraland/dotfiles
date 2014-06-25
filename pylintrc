@@ -35,6 +35,8 @@ load-plugins=
 # it should appear only once).
 #disable=
 
+# Pylint interprets all module-level variables as being constants
+disable=C0103
 
 [REPORTS]
 
