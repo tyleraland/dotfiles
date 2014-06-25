@@ -33,10 +33,10 @@ load-plugins=
 # can either give multiple identifier separated by comma (,) or put this option
 # multiple time (only on the command line, not in the configuration file where
 # it should appear only once).
-#disable=
 
-# Pylint interprets all module-level variables as being constants
-disable=C0103
+# C0103: Pylint interprets all module-level variables as being constants
+# E0611: Don't complain if Pylint can't find name within a module
+disable=C0103,E0611
 
 [REPORTS]
 
