@@ -155,3 +155,5 @@ if [ ! -z "$SSH_TTY" ]; then # We logged in via SSH
         fi
     done
 fi
+
+source ~/.bash_functions.sh
