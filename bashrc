@@ -166,7 +166,7 @@ if [ -f ~/.bash_functions.sh ]; then
     source ~/.bash_functions.sh
 fi
 
-if [ -f ~/.bash_local.sh ;] then
+if [ -f ~/.bash_local.sh ]; then
     source ~/.bash_local.sh
 fi
 
