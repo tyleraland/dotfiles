@@ -133,9 +133,7 @@ if [[ $(hostname) == "Euler.local" ]]; then
 fi
 
 # Ensure that ssh-agent is alive
-if [ "$(ps x | grep -v grep | grep ssh-agent)" ]; then
-    echo "ssh-agent is alive"
-else
+if [ ! "$(ps x | grep -v grep | grep ssh-agent)" ]; then
     eval $(ssh-agent -s)
 fi
 
