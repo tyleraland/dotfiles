@@ -131,6 +131,14 @@ PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[1
 if [[ $(hostname) == "Euler.local" ]]; then
     PATH=/Users/tal/anaconda/bin:$PATH
 fi
+
+# Ensure that ssh-agent is alive
+if [ "$(ps x | grep -v grep | grep ssh-agent)" ]; then
+    echo "ssh-agent is alive"
+else
+    eval $(ssh-agent -s)
+fi
+
 # This block keeps ssh-agent persistent, even throughout tmux sessions
 # we're not in a tmux session
 if [ ! -z "$SSH_TTY" ]; then # We logged in via SSH
