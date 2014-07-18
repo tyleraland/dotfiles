@@ -162,4 +162,11 @@ if [ ! -z "$SSH_TTY" ]; then # We logged in via SSH
     done
 fi
 
-source ~/.bash_functions.sh
+if [ -f ~/.bash_functions.sh ]; then
+    source ~/.bash_functions.sh
+fi
+
+if [ -f ~/.bash_local.sh ;] then
+    source ~/.bash_local.sh
+fi
+
