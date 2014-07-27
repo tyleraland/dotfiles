@@ -128,8 +128,9 @@ fi
 # Green/blue prompt for regular users
 PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[1;37m\]'
 
-if [[ $(hostname) == "Euler.local" ]]; then
-    PATH=/Users/tal/anaconda/bin:$PATH
+if [[ $(uname -s) == "Darwin" ]]; then
+    #PATH=/Users/tal/anaconda/bin:$PATH
+    export JAVA_HOME=$(/usr/libexec/java_home)
 fi
 
 # Ensure that ssh-agent is alive
