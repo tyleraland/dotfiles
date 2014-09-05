@@ -138,30 +138,56 @@ if [ ! "$(ps x | grep -v grep | grep ssh-agent)" ]; then
     eval $(ssh-agent -s)
 fi
 
-# This block keeps ssh-agent persistent, even throughout tmux sessions
-# we're not in a tmux session
-if [ ! -z "$SSH_TTY" ]; then # We logged in via SSH
-    # if ssh auth variable is missing
-    if [ -z "$SSH_AUTH_SOCK" ]; then
-        export SSH_AUTH_SOCK="$HOME/.ssh/.auth_socket"
+## This block keeps ssh-agent persistent, even throughout tmux sessions
+## we're not in a tmux session
+#if [ ! -z "$SSH_TTY" ]; then # We logged in via SSH
+#    # if ssh auth variable is missing
+#    if [ -z "$SSH_AUTH_SOCK" ]; then
+#        export SSH_AUTH_SOCK="$HOME/.ssh/.auth_socket"
+#    fi
+#    # if socket is available create the new auth session
+#    if [ ! -S "$SSH_AUTH_SOCK" ]; then
+#        `ssh-agent -a $SSH_AUTH_SOCK` > /dev/null 2>&1
+#        echo $SSH_AGENT_PID > $HOME/.ssh/.auth_pid
+#    fi
+#    # if agent isn't defined, recreate it from pid file
+#    if [ -z $SSH_AGENT_PID ]; then
+#        export SSH_AGENT_PID=`cat $HOME/.ssh/.auth_pid`
+#    fi
+#    # Add keys to ssh auth
+#    for key in id_rsa github_rsa; do
+#        ssh-add -l | grep "$key" > /dev/null
+#        if [ $? -ne 0 ]; then
+#            ssh-add ~/.ssh/$key
+#        fi
+#    done
+#fi
+
+get_ssh_sock(){
+    sock=$(find /tmp/ssh-* -user $USER -name "agent.*" 2> /dev/null | head -1)
+    if [[ -z $sock ]]; then
+    eval $(ssh-agent -s)
     fi
-    # if socket is available create the new auth session
-    if [ ! -S "$SSH_AUTH_SOCK" ]; then
-        `ssh-agent -a $SSH_AUTH_SOCK` > /dev/null 2>&1
-        echo $SSH_AGENT_PID > $HOME/.ssh/.auth_pid
+    find /tmp/ssh-* -user $USER -name "agent.*" 2> /dev/null | head -1
+}
+
+ssh-refresh() {
+    echo shell: SSH_AUTH_SOCK=$SSH_AUTH_SOCK
+    export SSH_AUTH_SOCK=$(get_ssh_sock)
+    echo shell: SSH_AUTH_SOCK=$SSH_AUTH_SOCK
+    if [[ -n $TMUX ]]; then
+    TMUX_SOCK=$(echo $TMUX|cut -d , -f 1)
+    echo -n 'tmux: '; tmux -S $TMUX_SOCK showenv | grep SSH_AUTH_SOCK
+    tmux -S $TMUX_SOCK setenv SSH_AUTH_SOCK $SSH_AUTH_SOCK
+    echo -n 'tmux: '; tmux -S $TMUX_SOCK showenv | grep SSH_AUTH_SOCK
     fi
-    # if agent isn't defined, recreate it from pid file
-    if [ -z $SSH_AGENT_PID ]; then
-        export SSH_AGENT_PID=`cat $HOME/.ssh/.auth_pid`
+
+    local NEW_DISPLAY=$(tmux showenv | grep -E "^DISPLAY" | cut -d= -f2)
+    if [[ -n $NEW_DISPLAY ]]; then
+    print "Display: $NEW_DISPLAY"
+    export DISPLAY=$NEW_DISPLAY
     fi
-    # Add keys to ssh auth
-    for key in id_rsa github_rsa; do
-        ssh-add -l | grep "$key" > /dev/null
-        if [ $? -ne 0 ]; then
-            ssh-add ~/.ssh/$key
-        fi
-    done
-fi
+}
 
 if [ -f ~/.bash_functions.sh ]; then
     source ~/.bash_functions.sh
