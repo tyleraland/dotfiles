@@ -121,7 +121,7 @@ export VISUAL="vim"
 # TIP: Ctrl-S / Ctrl-Q lock/unlock
 stty -ixon
 
-if [ -f ~/.get-completion.bash ]; then
+if [ -f ~/.git-completion.bash ]; then
     source ~/.git-completion.bash
 fi
 
