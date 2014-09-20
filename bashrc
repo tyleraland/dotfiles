@@ -121,8 +121,8 @@ export VISUAL="vim"
 # TIP: Ctrl-S / Ctrl-Q lock/unlock
 stty -ixon
 
-if [ -f ~/.git-completion.bash ]; then
-    source ~/.git-completion.bash
+if [[ -f ~/.git-completion.sh ]]; then
+    source ~/.git-completion.sh
 fi
 
 # Green/blue prompt for regular users
