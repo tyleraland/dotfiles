@@ -136,6 +136,14 @@ fi
 # Ensure that ssh-agent is alive
 if [ ! "$(ps x | grep -v grep | grep ssh-agent)" ]; then
     eval $(ssh-agent -s)
+
+    # Add keys to ssh auth
+    for key in id_rsa github_rsa; do
+        ssh-add -l | grep "$key" > /dev/null
+        if [ $? -ne 0 ]; then
+            ssh-add ~/.ssh/$key
+        fi
+    done
 fi
 
 ## This block keeps ssh-agent persistent, even throughout tmux sessions
