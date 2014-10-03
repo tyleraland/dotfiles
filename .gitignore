@@ -3,3 +3,4 @@
 .netrwhist
 vim/.netrwhist*
 vim/bundle/vim-colors-solarized/
+vim/bundle/jedi-vim/

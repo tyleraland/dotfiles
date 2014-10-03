@@ -29,5 +29,8 @@ done
 if [[ -d $SRC/vim/bundle/ && ! -d $SRC/vim/bundle/vim-colors-solarized ]]; then
     git clone https://github.com/altercation/vim-colors-solarized $SRC/vim/bundle/vim-colors-solarized
 fi
+if [[ -d $SRC/vim/bundle/ && ! -d $SRC/vim/bundle/jedi-vim ]]; then
+    git clone --recursive http://github.com/davidhalter/jedi-vim $SRC/vim/bundle/jedi-vim
+fi
 
 source ~/.bashrc
