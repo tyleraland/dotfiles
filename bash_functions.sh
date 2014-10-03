@@ -7,9 +7,9 @@ function diffhead {
         return $E_BADARGS
     fi
     if [[ -x "$(type -p $diff)" ]]; then
-        $diff <(head -n $3 $1) <(head -n $3 $2)
+        $diff <(head -n $1 $2) <(head -n $1 $3)
     else
         echo "$diff not found in path -- defaulting to diff"
-        diff <(head -n $3 $1) <(head -n $3 $2)
+        diff <(head -n $1 $2) <(head -n $1 $2)
     fi
 }
