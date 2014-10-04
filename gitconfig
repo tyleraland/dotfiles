@@ -1,6 +1,6 @@
 [user]
 	name = Tyler A Land
-	email = tland9@uw.edu
+#	email = tland9@uw.edu
 [core]
 	editor = vim
     ignorecase = true
