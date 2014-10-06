@@ -32,5 +32,8 @@ fi
 if [[ -d $SRC/vim/bundle/ && ! -d $SRC/vim/bundle/jedi-vim ]]; then
     git clone --recursive http://github.com/davidhalter/jedi-vim $SRC/vim/bundle/jedi-vim
 fi
+if [[ -d $SRC/vim/bundle/ && ! -d $SRC/vim/bundle/supertab ]]; then
+    git clone --recursive https://github.com/ervandew/supertab.git $SRC/vim/bundle/supertab
+fi
 
 source ~/.bashrc

@@ -22,6 +22,9 @@ if has("autocmd")
     autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
     " SConstruct is just python
     autocmd BufNewFile,BufRead SConstruct setfiletype python
+
+    " vim-jedi
+    "autocmd FileType python setlocal completeopt-=preview
 endif
 
 " Pathogen
@@ -53,3 +56,9 @@ set foldmethod=indent
 set foldnestmax=10  "deepest fold is 10 levels
 set nofoldenable    "don't fold by default
 set foldlevel=1     "Try others
+
+" Jedi-vim
+let g:jedi#popup_on_dot = 0 " Disable the automatic popup after typing a dot
+
+" Supertab
+let g:SuperTabDefaultCompletionType = "context" " Will trigger the jedi-vim popup on tab after dot

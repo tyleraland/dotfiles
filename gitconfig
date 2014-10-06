@@ -1,6 +1,7 @@
 [user]
 	name = Tyler A Land
-	email = tland9@uw.edu
+#	Set email manually:
+#	git config user.email "tyleraland@gmail.com"
 [core]
 	editor = vim
     ignorecase = true
@@ -8,3 +9,4 @@
 	tool = vimdiff
 [color]
     ui = true
+
