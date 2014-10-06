@@ -46,3 +46,10 @@ set listchars=tab:▸\ ,eol:¬
 " By Default, the following indentations are doubled.  Too much for me.
 let g:pyindent_open_paren = '&sw'
 let g:python_continue = '&sw'
+
+" Code folding settings.
+" cheatsheet: `za`-toggles `zc`-closes `zo`-opens `zR'-openAll `zM`-closeall
+set foldmethod=indent
+set foldnestmax=10  "deepest fold is 10 levels
+set nofoldenable    "don't fold by default
+set foldlevel=1     "Try others
