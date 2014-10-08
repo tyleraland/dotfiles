@@ -62,3 +62,12 @@ let g:jedi#popup_on_dot = 0 " Disable the automatic popup after typing a dot
 
 " Supertab
 let g:SuperTabDefaultCompletionType = "context" " Will trigger the jedi-vim popup on tab after dot
+
+" MacVim only
+if has("gui_running")
+    " Always open with NERDTree
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+    " Close vim if the only window left is NERDTree
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+endif
