@@ -15,13 +15,13 @@ function diffhead {
 }
 
 function dt {
-    if [[ $1 -eq b ]]; then
+    if [[ $1 = "b" ]]; then
         dir=Blog_Posts
-    elif [[ $1 -eq t ]]; then
+    elif [[ $1 = "t" ]]; then
         dir=Thoughts
-    elif [[ $1 -eq m ]]; then
+    elif [[ $1 = "m" ]]; then
         dir=Misc
-    elif [[ $1 -eq w ]]; then
+    elif [[ $1 = "w" ]]; then
         dir=Worklog
     fi
     datestamp=`date "+%Y-%m-%d"`
