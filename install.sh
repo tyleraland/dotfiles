@@ -36,7 +36,6 @@ if [[ -d $SRC/vim/bundle/ && ! -d $SRC/vim/bundle/supertab ]]; then
     git clone --recursive https://github.com/ervandew/supertab.git $SRC/vim/bundle/supertab
 fi
 if [[ -d $SRC/vim/bundle/ && ! -d $SRC/vim/bundle/nerdtree ]]; then
-    #git submodule add https://github.com/scrooloose/nerdtree.git $SRC/vim/bundle/nerdtree
     git clone https://github.com/scrooloose/nerdtree.git $SRC/vim/bundle/nerdtree
 fi
 
