@@ -1,3 +1,7 @@
+" Startup
+set shellcmdflag=-ic " Make ex's :! behave like command prompt
+
+" Session
 syntax enable 
 set ruler          " show line number on the bar
 set cursorline
@@ -69,9 +73,14 @@ let g:jedi#popup_on_dot = 0 " Disable the automatic popup after typing a dot
 " Supertab
 let g:SuperTabDefaultCompletionType = "context" " Will trigger the jedi-vim popup on tab after dot
 
+" Nerdtree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif " Close vim if only window open is NERDTree
+
 " MacVim only
 if has('gui_macvim')
     set guifont=Monaco:h15
     set norelativenumber
     set spell "spellcheck
+    autocmd vimenter * NERDTree " Open NERDTree on startup
 endif
+
