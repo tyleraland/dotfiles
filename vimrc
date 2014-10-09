@@ -11,6 +11,7 @@ set undolevels=1000 " 1000 undos
 set shell=bash
 set hlsearch
 set backup
+set relativenumber "Line numbers relative to current line
 
 if has("autocmd")
     " Enable filetype detection
@@ -25,6 +26,11 @@ if has("autocmd")
 
     " vim-jedi
     "autocmd FileType python setlocal completeopt-=preview
+endif
+
+" Attempt at colors
+if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+    set t_Co=256
 endif
 
 " Pathogen
@@ -62,3 +68,10 @@ let g:jedi#popup_on_dot = 0 " Disable the automatic popup after typing a dot
 
 " Supertab
 let g:SuperTabDefaultCompletionType = "context" " Will trigger the jedi-vim popup on tab after dot
+
+" MacVim only
+if has('gui_macvim')
+    set guifont=Monaco:h15
+    set norelativenumber
+    set spell "spellcheck
+endif
