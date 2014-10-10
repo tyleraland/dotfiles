@@ -13,3 +13,25 @@ function diffhead {
         diff <(head -n $1 $2) <(head -n $1 $2)
     fi
 }
+
+function dt {
+    if [[ $1 = "b" ]]; then
+        dir=Blog_Posts
+    elif [[ $1 = "t" ]]; then
+        dir=Thoughts
+    elif [[ $1 = "m" ]]; then
+        dir=Misc
+    elif [[ $1 = "w" ]]; then
+        dir=Worklog
+    fi
+    datestamp=`date "+%Y-%m-%d"`
+    target=~/Dropbox/Notes/$dir/$datestamp
+    if [[ -f $target ]]; then
+        inc=1
+        while [[ -f ${target}.${inc} ]]; do
+            ((inc++))
+        done
+        target=${target}.${inc}
+    fi
+    echo $target
+}

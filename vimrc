@@ -1,3 +1,7 @@
+" Startup
+set shellcmdflag=-ic " Make ex's :! behave like command prompt
+
+" Session
 syntax enable 
 set ruler          " show line number on the bar
 set cursorline
@@ -11,6 +15,7 @@ set undolevels=1000 " 1000 undos
 set shell=bash
 set hlsearch
 set backup
+set relativenumber "Line numbers relative to current line
 
 if has("autocmd")
     " Enable filetype detection
@@ -25,6 +30,11 @@ if has("autocmd")
 
     " vim-jedi
     "autocmd FileType python setlocal completeopt-=preview
+endif
+
+" Attempt at colors
+if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+    set t_Co=256
 endif
 
 " Pathogen
@@ -63,11 +73,16 @@ let g:jedi#popup_on_dot = 0 " Disable the automatic popup after typing a dot
 " Supertab
 let g:SuperTabDefaultCompletionType = "context" " Will trigger the jedi-vim popup on tab after dot
 
+"    " Always open with NERDTree
+"    autocmd StdinReadPre * let s:std_in=1
+"    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
 " MacVim only
-if has("gui_running")
-    " Always open with NERDTree
-    autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+if has('gui_macvim')
+    set guifont=Monaco:h15
+    set norelativenumber
+    set spell "spellcheck
+    autocmd vimenter * NERDTree " Open NERDTree on startup
     " Close vim if the only window left is NERDTree
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 endif
