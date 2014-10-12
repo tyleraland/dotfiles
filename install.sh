@@ -21,7 +21,7 @@ for file in $files; do
     if [ -f $SRC/$file ]; then
         ln -sf $SRC/$file ~/.$file
     elif [ -d $SRC/$file ]; then
-        rm ~/.$file
+        rm -f ~/.$file
         ln -sF $SRC/$file ~/.$file
     fi
 done
