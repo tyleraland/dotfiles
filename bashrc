@@ -123,10 +123,13 @@ fi
 # Green/blue prompt for regular users
 PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[1;37m\]'
 
+# PATHs
+
 if [[ $(uname -s) == "Darwin" ]]; then
-    #PATH=/Users/tal/anaconda/bin:$PATH
     export JAVA_HOME=$(/usr/libexec/java_home)
+    export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin"
 fi
+
 
 # Ensure that ssh-agent is alive
 if [ ! "$(ps x | grep -v grep | grep ssh-agent)" ]; then
