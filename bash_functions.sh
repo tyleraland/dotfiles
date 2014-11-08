@@ -15,6 +15,10 @@ function diffhead {
 }
 
 function dt {
+    if [[ -z $1 ]]; then
+        echo `date "+%Y-%m-%d"`
+        return 0
+    fi
     if [[ $1 = "b" ]]; then
         dir=Blog_Posts
     elif [[ $1 = "t" ]]; then
@@ -26,12 +30,12 @@ function dt {
     fi
     datestamp=`date "+%Y-%m-%d"`
     target=~/Dropbox/Notes/$dir/$datestamp
-    if [[ -f $target ]]; then
-        inc=1
-        while [[ -f ${target}.${inc} ]]; do
-            ((inc++))
-        done
-        target=${target}.${inc}
-    fi
+#    if [[ -f $target ]]; then
+#        inc=1
+#        while [[ -f ${target}.${inc} ]]; do
+#            ((inc++))
+#        done
+#        target=${target}.${inc}
+#    fi
     echo $target
 }

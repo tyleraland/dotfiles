@@ -5,9 +5,6 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# ~/bin, /usr/local/bin, then /usr/bin/
-PATH=/usr/local/bin:/usr/local/sbin:$PATH
-
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -126,6 +123,11 @@ fi
 # Green/blue prompt for regular users
 PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[1;37m\]'
 
+# PATHs
+
+# /usr/local/bin, then /usr/bin/
+PATH=/usr/local/bin:/usr/local/sbin:$PATH
+
 if [[ $(uname -s) == "Darwin" ]]; then
     export JAVA_HOME=$(/usr/libexec/java_home)
 
@@ -136,7 +138,9 @@ if [[ $(uname -s) == "Darwin" ]]; then
     # Use an alias, not a wrapper script in PATH because that conflicts with
     # ssh proxy commands
     alias ssh=~/.bin/ssh
+    export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin"
 fi
+
 
 # Ensure that ssh-agent is alive
 if [ ! "$(ps x | grep -v grep | grep ssh-agent)" ]; then
