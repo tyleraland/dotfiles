@@ -5,6 +5,9 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+# ~/bin, /usr/local/bin, then /usr/bin/
+PATH=/usr/local/bin:/usr/local/sbin:$PATH
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -124,8 +127,15 @@ fi
 PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[1;37m\]'
 
 if [[ $(uname -s) == "Darwin" ]]; then
-    #PATH=/Users/tal/anaconda/bin:$PATH
     export JAVA_HOME=$(/usr/libexec/java_home)
+
+    # Set tab name to local host
+    echo -ne "\033]0;$HOSTNAME\007"
+
+    # Wrap ssh command to give custom tab name
+    # Use an alias, not a wrapper script in PATH because that conflicts with
+    # ssh proxy commands
+    alias ssh=~/.bin/ssh
 fi
 
 # Ensure that ssh-agent is alive
@@ -140,31 +150,6 @@ if [ ! "$(ps x | grep -v grep | grep ssh-agent)" ]; then
         fi
     done
 fi
-
-## This block keeps ssh-agent persistent, even throughout tmux sessions
-## we're not in a tmux session
-#if [ ! -z "$SSH_TTY" ]; then # We logged in via SSH
-#    # if ssh auth variable is missing
-#    if [ -z "$SSH_AUTH_SOCK" ]; then
-#        export SSH_AUTH_SOCK="$HOME/.ssh/.auth_socket"
-#    fi
-#    # if socket is available create the new auth session
-#    if [ ! -S "$SSH_AUTH_SOCK" ]; then
-#        `ssh-agent -a $SSH_AUTH_SOCK` > /dev/null 2>&1
-#        echo $SSH_AGENT_PID > $HOME/.ssh/.auth_pid
-#    fi
-#    # if agent isn't defined, recreate it from pid file
-#    if [ -z $SSH_AGENT_PID ]; then
-#        export SSH_AGENT_PID=`cat $HOME/.ssh/.auth_pid`
-#    fi
-#    # Add keys to ssh auth
-#    for key in id_rsa github_rsa; do
-#        ssh-add -l | grep "$key" > /dev/null
-#        if [ $? -ne 0 ]; then
-#            ssh-add ~/.ssh/$key
-#        fi
-#    done
-#fi
 
 get_ssh_sock(){
     sock=$(find /tmp/ssh-* -user $USER -name "agent.*" 2> /dev/null | head -1)
@@ -192,6 +177,7 @@ ssh-refresh() {
     fi
 }
 
+#### custom functions
 if [ -f ~/.bash_functions.sh ]; then
     source ~/.bash_functions.sh
 fi
@@ -199,4 +185,4 @@ fi
 if [ -f ~/.bash_local.sh ]; then
     source ~/.bash_local.sh
 fi
-
+####
