@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Set tab title
+echo -ne "\033]0;"$@"\007"
+
+# Run the real ssh
+/usr/bin/ssh "$@"
+
+# Reset the tab title to current shell on exit
+echo -ne "\033]0;$HOSTNAME\007"

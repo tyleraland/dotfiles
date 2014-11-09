@@ -139,8 +139,19 @@ fi
 
 # PATHs
 
+# /usr/local/bin, then /usr/bin/
+PATH=/usr/local/bin:/usr/local/sbin:$PATH
+
 if [[ $(uname -s) == "Darwin" ]]; then
     export JAVA_HOME=$(/usr/libexec/java_home)
+
+    # Set tab name to local host
+    echo -ne "\033]0;$HOSTNAME\007"
+
+    # Wrap ssh command to give custom tab name
+    # Use an alias, not a wrapper script in PATH because that conflicts with
+    # ssh proxy commands
+    alias ssh=~/.bin/ssh
     export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin"
 fi
 
@@ -157,31 +168,6 @@ if [ ! "$(ps x | grep -v grep | grep ssh-agent)" ]; then
         fi
     done
 fi
-
-## This block keeps ssh-agent persistent, even throughout tmux sessions
-## we're not in a tmux session
-#if [ ! -z "$SSH_TTY" ]; then # We logged in via SSH
-#    # if ssh auth variable is missing
-#    if [ -z "$SSH_AUTH_SOCK" ]; then
-#        export SSH_AUTH_SOCK="$HOME/.ssh/.auth_socket"
-#    fi
-#    # if socket is available create the new auth session
-#    if [ ! -S "$SSH_AUTH_SOCK" ]; then
-#        `ssh-agent -a $SSH_AUTH_SOCK` > /dev/null 2>&1
-#        echo $SSH_AGENT_PID > $HOME/.ssh/.auth_pid
-#    fi
-#    # if agent isn't defined, recreate it from pid file
-#    if [ -z $SSH_AGENT_PID ]; then
-#        export SSH_AGENT_PID=`cat $HOME/.ssh/.auth_pid`
-#    fi
-#    # Add keys to ssh auth
-#    for key in id_rsa github_rsa; do
-#        ssh-add -l | grep "$key" > /dev/null
-#        if [ $? -ne 0 ]; then
-#            ssh-add ~/.ssh/$key
-#        fi
-#    done
-#fi
 
 get_ssh_sock(){
     sock=$(find /tmp/ssh-* -user $USER -name "agent.*" 2> /dev/null | head -1)
