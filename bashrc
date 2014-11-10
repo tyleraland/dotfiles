@@ -24,6 +24,9 @@ shopt -s histappend
 HISTSIZE=1000
 HISTFILESIZE=2000
 
+# Ctrl-D must be pressed twice
+export IGNOREEOF=1
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -123,7 +126,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 umask 0002
 
-set -o vi
+# set -o vi
 
 export EDITOR="vim"
 export VISUAL="vim"
