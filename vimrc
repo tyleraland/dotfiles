@@ -2,7 +2,7 @@
 set shellcmdflag=-ic " Make ex's :! behave like command prompt
 
 " Session
-syntax enable 
+syntax enable
 set ruler          " show line number on the bar
 set cursorline
 set shiftwidth=4 " Specifies amount of whitespace to insert/delete when indenting in normal mode
@@ -26,7 +26,7 @@ if has("autocmd")
     autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
     autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
     " SConstruct is just python
-    autocmd BufNewFile,BufRead SConstruct setfiletype python
+    autocmd BufNewFile,BufRead SConstruct,SConscript,*.scons setfiletype python
 
     " vim-jedi
     "autocmd FileType python setlocal completeopt-=preview
@@ -68,6 +68,7 @@ set nofoldenable    "don't fold by default
 set foldlevel=1     "Try others
 
 " Jedi-vim
+let g:jedi#auto_initialization = 0 " DISABLE vim-jedi
 let g:jedi#popup_on_dot = 0 " Disable the automatic popup after typing a dot
 
 " Supertab
@@ -86,3 +87,6 @@ if has('gui_macvim')
     " Close vim if the only window left is NERDTree
 "    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 endif
+
+" Highlight trailing whitespace after leaving insert mode
+au InsertLeave * match Errormsg /\s\+\%#\@<!$/
