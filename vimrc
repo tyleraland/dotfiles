@@ -86,3 +86,7 @@ if has('gui_macvim')
     " Close vim if the only window left is NERDTree
 "    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 endif
+
+if $TMUX == ''
+    set clipboard+=unnamed
+endif
