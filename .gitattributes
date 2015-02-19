@@ -1,0 +1,3 @@
+testkey filter=git-crypt diff=git-crypt
+.gitattributes !filter !diff
+.gitmodules !filter !diff
