@@ -30,9 +30,6 @@ mkdir -p $SRC/vim/bundle
 if [[ ! -d $SRC/vim/bundle/vim-colors-solarized ]]; then
     git clone https://github.com/altercation/vim-colors-solarized $SRC/vim/bundle/vim-colors-solarized
 fi
-if [[ ! -d $SRC/vim/bundle/jedi-vim ]]; then
-    git clone --recursive http://github.com/davidhalter/jedi-vim $SRC/vim/bundle/jedi-vim
-fi
 if [[ ! -d $SRC/vim/bundle/supertab ]]; then
     git clone --recursive https://github.com/ervandew/supertab.git $SRC/vim/bundle/supertab
 fi
