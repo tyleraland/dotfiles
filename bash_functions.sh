@@ -17,7 +17,7 @@ WHITE="\[\033[1;37m\]"
 function diffhead {
     diff=vimdiff
     if [[ $# -ne 3 ]]; then
-        echo "Usage: diffhead file1 file2 head_length"
+        echo "Usage: head_length diffhead file1 file2"
         return $E_BADARGS
     fi
     if [[ -x "$(type -p $diff)" ]]; then
