@@ -16,6 +16,7 @@ set shell=bash
 set hlsearch
 set backup
 set relativenumber "Line numbers relative to current line
+set backspace=2
 
 if has("autocmd")
     " Enable filetype detection
@@ -23,13 +24,11 @@ if has("autocmd")
     filetype on
     " These files are fussy about tabs versus spaces
     autocmd FileType make setlocal sw=8 sts=8 ts=8 noexpandtab
-    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab indentexpr=GetYAMLIndent()
     autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
     " SConstruct is just python
     autocmd BufNewFile,BufRead SConstruct,SConscript,*.scons setfiletype python
 
-    " vim-jedi
-    "autocmd FileType python setlocal completeopt-=preview
 endif
 
 " Attempt at colors
@@ -67,10 +66,6 @@ set foldnestmax=10  "deepest fold is 10 levels
 set nofoldenable    "don't fold by default
 set foldlevel=1     "Try others
 
-" Jedi-vim
-let g:jedi#auto_initialization = 0 " DISABLE vim-jedi
-let g:jedi#popup_on_dot = 0 " Disable the automatic popup after typing a dot
-
 " Supertab
 let g:SuperTabDefaultCompletionType = "context" " Will trigger the jedi-vim popup on tab after dot
 
@@ -88,5 +83,10 @@ if has('gui_macvim')
 "    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 endif
 
+if $TMUX == ''
+    set clipboard+=unnamed
+endif
 " Highlight trailing whitespace after leaving insert mode
 au InsertLeave * match Errormsg /\s\+\%#\@<!$/
+
+"indentexpr=GetYAMLIndent(v:lnum)

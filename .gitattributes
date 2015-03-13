@@ -1,0 +1,4 @@
+keys/github_rsa filter=git-crypt diff=git-crypt
+keys/id_rsa filter=git-crypt diff=git-crypt
+.gitattributes !filter !diff
+.gitmodules !filter !diff
