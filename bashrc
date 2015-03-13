@@ -90,7 +90,8 @@ PROMPT_COMMAND=set_bash_prompt
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    #test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    test -r ~/dotfiles/colors/dircolors.ansi-dark && eval "$(dircolors -b ~/dotfiles/colors/dircolors.ansi-dark)" || eval "$(dircolors -b)"
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
