@@ -17,7 +17,7 @@ WHITE="\[\033[1;37m\]"
 function diffhead {
     diff=vimdiff
     if [[ $# -ne 3 ]]; then
-        echo "Usage: diffhead file1 file2 head_length"
+        echo "Usage: head_length diffhead file1 file2"
         return $E_BADARGS
     fi
     if [[ -x "$(type -p $diff)" ]]; then
@@ -33,25 +33,19 @@ function dt {
         echo `date "+%Y-%m-%d"`
         return 0
     fi
-    if [[ $1 = "b" ]]; then
-        dir=Blog_Posts
-    elif [[ $1 = "t" ]]; then
-        dir=Thoughts
-    elif [[ $1 = "m" ]]; then
-        dir=Misc
-    elif [[ $1 = "w" ]]; then
-        dir=Worklog
-    fi
-    datestamp=`date "+%Y-%m-%d"`
-    target=~/Dropbox/Notes/$dir/$datestamp
-#    if [[ -f $target ]]; then
-#        inc=1
-#        while [[ -f ${target}.${inc} ]]; do
-#            ((inc++))
-#        done
-#        target=${target}.${inc}
+# Experimental "dropbox" datetime stamps
+#    if [[ $1 = "b" ]]; then
+#        dir=Blog_Posts
+#    elif [[ $1 = "t" ]]; then
+#        dir=Thoughts
+#    elif [[ $1 = "m" ]]; then
+#        dir=Misc
+#    elif [[ $1 = "w" ]]; then
+#        dir=Worklog
 #    fi
-    echo $target
+#    datestamp=`date "+%Y-%m-%d"`
+#    target=~/Dropbox/Notes/$dir/$datestamp
+#    echo $target
 }
 
 function is_git_repository {
