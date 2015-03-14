@@ -158,6 +158,8 @@ if [[ $(uname -s) == "Darwin" ]]; then
     export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin"
 fi
 
+# Set up rbenv for homebrew
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # Ensure that ssh-agent is alive
 if [ ! "$(ps x | grep -v grep | grep ssh-agent)" ]; then
