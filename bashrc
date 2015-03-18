@@ -138,20 +138,6 @@ if [[ $(uname -s) == "Darwin" ]]; then
     export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin"
 fi
 
-
-# Ensure that ssh-agent is alive
-if [ ! "$(ps x | grep -v grep | grep ssh-agent)" ]; then
-    eval $(ssh-agent -s)
-
-    # Add keys to ssh auth
-    for key in id_rsa github_rsa; do
-        ssh-add -l | grep "$key" > /dev/null
-        if [ $? -ne 0 ]; then
-            ssh-add ~/.ssh/$key
-        fi
-    done
-fi
-
 get_ssh_sock(){
     sock=$(find /tmp/ssh-* -user $USER -name "agent.*" 2> /dev/null | head -1)
     if [[ -z $sock ]]; then
@@ -160,7 +146,7 @@ get_ssh_sock(){
     find /tmp/ssh-* -user $USER -name "agent.*" 2> /dev/null | head -1
 }
 
-ssh-refresh() {
+ssh_refresh() {
     echo shell: SSH_AUTH_SOCK=$SSH_AUTH_SOCK
     export SSH_AUTH_SOCK=$(get_ssh_sock)
     echo shell: SSH_AUTH_SOCK=$SSH_AUTH_SOCK
@@ -177,3 +163,21 @@ ssh-refresh() {
     export DISPLAY=$NEW_DISPLAY
     fi
 }
+# Ensure that ssh-agent is alive
+if [ ! "$(ps x | grep -v grep | grep ssh-agent)" ]; then
+    eval $(ssh-agent -s)
+
+    # Add keys to ssh auth
+    for key in id_rsa github_rsa; do
+        ssh-add -l | grep "$key" > /dev/null
+        if [ $? -ne 0 ]; then
+            ssh-add ~/.ssh/$key
+        fi
+    done
+else # Check if ssh socket is lost and if so, refresh it
+    ssh-add -l >/dev/null
+    if [ $? -eq 2 ]; then
+        ssh_refresh
+    fi
+fi
+
