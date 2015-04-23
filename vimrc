@@ -66,8 +66,8 @@ set foldnestmax=10  "deepest fold is 10 levels
 set nofoldenable    "don't fold by default
 set foldlevel=1     "Try others
 
-" Supertab
-let g:SuperTabDefaultCompletionType = "context" " Will trigger the jedi-vim popup on tab after dot
+"" Supertab
+"let g:SuperTabDefaultCompletionType = "context" " Will trigger the jedi-vim popup on tab after dot
 
 "    " Always open with NERDTree
 "    autocmd StdinReadPre * let s:std_in=1

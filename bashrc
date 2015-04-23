@@ -181,3 +181,5 @@ else # Check if ssh socket is lost and if so, refresh it
     fi
 fi
 
+# Fixes tmux issue where symlinks are expanded to canonical file names
+[ "x${PWD#/mnt/disk2/molmicro}" != "x$PWD" ] && cd /molmicro${PWD#/mnt/disk2/molmicro}
