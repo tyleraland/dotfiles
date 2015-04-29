@@ -141,6 +141,22 @@ if [[ $(uname -s) == "Darwin" ]]; then
     export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin"
 fi
 
+# Set up rbenv for homebrew
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+# Ensure that ssh-agent is alive
+if [ ! "$(ps x | grep -v grep | grep ssh-agent)" ]; then
+    eval $(ssh-agent -s)
+
+    # Add keys to ssh auth
+    for key in id_rsa github_rsa; do
+        ssh-add -l | grep "$key" > /dev/null
+        if [ $? -ne 0 ]; then
+            ssh-add ~/.ssh/$key
+        fi
+    done
+fi
+
 get_ssh_sock(){
     sock=$(find /tmp/ssh-* -user $USER -name "agent.*" 2> /dev/null | head -1)
     if [[ -z $sock ]]; then
