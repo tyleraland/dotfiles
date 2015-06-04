@@ -51,7 +51,7 @@ colorscheme solarized
 
 " When ':set list' is invoked, show EOL as NOT-symbol ¬ and tabs as triangle ▸
 " insert-mode, ctrl-v "u00ac" and "u25b8" will make ¬ and ▸ respectively
-set listchars=tab:▸\ ,eol:¬
+" set listchars=tab:▸\ ,eol:¬
 
 " See :help ft-python-indent for information on indent by expression
 " By default python files are subject to indentexpr=GetPythonIndent(v:lnum)
