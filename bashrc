@@ -91,6 +91,9 @@ fi
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
+
+alias path='readlink -e'
+
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
@@ -123,7 +126,7 @@ fi
 # PATHs
 
 # /usr/local/bin, then /usr/bin/
-PATH=/usr/local/bin:/usr/local/sbin:$PATH
+PATH=/usr/local/bin:/usr/local/sbin:~/bin:$PATH
 
 if [[ $(uname -s) == "Darwin" ]]; then
     export JAVA_HOME=$(/usr/libexec/java_home)
@@ -136,6 +139,22 @@ if [[ $(uname -s) == "Darwin" ]]; then
     # ssh proxy commands
     alias ssh=~/.bin/ssh
     export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin"
+fi
+
+# Set up rbenv for homebrew
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+# Ensure that ssh-agent is alive
+if [ ! "$(ps x | grep -v grep | grep ssh-agent)" ]; then
+    eval $(ssh-agent -s)
+
+    # Add keys to ssh auth
+    for key in id_rsa github_rsa; do
+        ssh-add -l | grep "$key" > /dev/null
+        if [ $? -ne 0 ]; then
+            ssh-add ~/.ssh/$key
+        fi
+    done
 fi
 
 get_ssh_sock(){
