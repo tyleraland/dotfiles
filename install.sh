@@ -29,7 +29,7 @@ mkdir -p $SRC/vim/bundle
 # Vim plugins
 if [[ ! -d $SRC/vim/bundle/vim-colors-solarized ]]; then
     git clone https://github.com/altercation/vim-colors-solarized $SRC/vim/bundle/vim-colors-solarized
-# fi
+fi
 # if [[ ! -d $SRC/vim/bundle/supertab ]]; then
 #     git clone --recursive https://github.com/ervandew/supertab.git $SRC/vim/bundle/supertab
 # fi
