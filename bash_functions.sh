@@ -1,19 +1,5 @@
 #!/bin/bash
 
-##### Colors #######
-COLOR_NONE="\[\e[0m\]"
-RED="\[\033[0;31m\]"
-GREEN="\[\033[0;32m\]"
-PURPLE="\[\033[0;35\]"
-LIGHT_GRAY="\[\033[0;37m\]"
-LIGHT_RED="\[\033[1;31m\]"
-LIGHT_GREEN="\[\033[1;32m\]"
-YELLOW="\[\033[1;33m\]"
-BLUE="\[\033[1;34m\]"
-LIGHT_PURPLE="\[\033[1;35m\]"
-WHITE="\[\033[1;37m\]"
-#####################
-
 function diffhead {
     diff=vimdiff
     if [[ $# -ne 3 ]]; then
@@ -33,6 +19,7 @@ function dt {
         echo `date "+%Y-%m-%d"`
         return 0
     fi
+}
 # Experimental "dropbox" datetime stamps
 #    if [[ $1 = "b" ]]; then
 #        dir=Blog_Posts
@@ -46,7 +33,24 @@ function dt {
 #    datestamp=`date "+%Y-%m-%d"`
 #    target=~/Dropbox/Notes/$dir/$datestamp
 #    echo $target
+#}
+
+function abspath {
+    echo "$(hostname):$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
 }
+##### Colors #######
+COLOR_NONE="\[\e[0m\]"
+RED="\[\033[0;31m\]"
+GREEN="\[\033[0;32m\]"
+PURPLE="\[\033[0;35\]"
+LIGHT_GRAY="\[\033[0;37m\]"
+LIGHT_RED="\[\033[1;31m\]"
+LIGHT_GREEN="\[\033[1;32m\]"
+YELLOW="\[\033[1;33m\]"
+BLUE="\[\033[1;34m\]"
+LIGHT_PURPLE="\[\033[1;35m\]"
+WHITE="\[\033[1;37m\]"
+#####################
 
 function is_git_repository {
    git branch > /dev/null 2>&1
