@@ -1,5 +1,6 @@
 " Startup
-set shellcmdflag=-ic " Make ex's :! behave like command prompt
+"set shellcmdflag=-ic " Make ex's :! behave like command prompt -- This
+"crashes in ubuntu 14.04"
 
 " Session
 syntax enable
