@@ -19,7 +19,7 @@ bind l:ctrl,cmd push right
 bind m:ctrl,cmd hide 'current'
 
 bind i:ctrl,cmd focus 'iTerm2'
-bind y:ctrl,cmd focus 'Google Chrome'
+bind y:ctrl,cmd focus 'Firefox'
 bind o:ctrl,cmd focus 'Evernote'
 bind f:ctrl,cmd focus 'Finder'
 bind u:ctrl,cmd focus 'Spotify'
