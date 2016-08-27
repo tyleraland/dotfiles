@@ -82,6 +82,9 @@ if has('gui_macvim')
     autocmd vimenter * NERDTree " Open NERDTree on startup
     " Close vim if the only window left is NERDTree
 "    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+"    # I prefer Solarized Light in MacVim
+    set background=light
 endif
 
 if $TMUX == ''
