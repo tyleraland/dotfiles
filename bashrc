@@ -2,6 +2,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+echo "HELLO"
+
 if [ -f ~/.bash_functions.sh ]; then
     source ~/.bash_functions.sh
 fi
@@ -141,8 +143,8 @@ if [[ $(uname -s) == "Darwin" ]]; then
     export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin"
 fi
 
-# Set up rbenv for homebrew
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+# # Set up rbenv for homebrew
+# if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # Ensure that ssh-agent is alive
 if [ ! "$(ps x | grep -v grep | grep ssh-agent)" ]; then
@@ -165,40 +167,40 @@ get_ssh_sock(){
     find /tmp/ssh-* -user $USER -name "agent.*" 2> /dev/null | head -1
 }
 
-ssh_refresh() {
-    echo shell: SSH_AUTH_SOCK=$SSH_AUTH_SOCK
-    export SSH_AUTH_SOCK=$(get_ssh_sock)
-    echo shell: SSH_AUTH_SOCK=$SSH_AUTH_SOCK
-    if [[ -n $TMUX ]]; then
-    TMUX_SOCK=$(echo $TMUX|cut -d , -f 1)
-    echo -n 'tmux: '; tmux -S $TMUX_SOCK showenv | grep SSH_AUTH_SOCK
-    tmux -S $TMUX_SOCK setenv SSH_AUTH_SOCK $SSH_AUTH_SOCK
-    echo -n 'tmux: '; tmux -S $TMUX_SOCK showenv | grep SSH_AUTH_SOCK
-    fi
-
-    local NEW_DISPLAY=$(tmux showenv | grep -E "^DISPLAY" | cut -d= -f2)
-    if [[ -n $NEW_DISPLAY ]]; then
-    print "Display: $NEW_DISPLAY"
-    export DISPLAY=$NEW_DISPLAY
-    fi
-}
-# Ensure that ssh-agent is alive
-if [ ! "$(ps x | grep -v grep | grep ssh-agent)" ]; then
-    eval $(ssh-agent -s)
-
-    # Add keys to ssh auth
-    for key in id_rsa github_rsa; do
-        ssh-add -l | grep "$key" > /dev/null
-        if [ $? -ne 0 ]; then
-            ssh-add ~/.ssh/$key
-        fi
-    done
-else # Check if ssh socket is lost and if so, refresh it
-    ssh-add -l >/dev/null
-    if [ $? -eq 2 ]; then
-        ssh_refresh
-    fi
-fi
+# ssh_refresh() {
+#     echo shell: SSH_AUTH_SOCK=$SSH_AUTH_SOCK
+#     export SSH_AUTH_SOCK=$(get_ssh_sock)
+#     echo shell: SSH_AUTH_SOCK=$SSH_AUTH_SOCK
+#     if [[ -n $TMUX ]]; then
+#     TMUX_SOCK=$(echo $TMUX|cut -d , -f 1)
+#     echo -n 'tmux: '; tmux -S $TMUX_SOCK showenv | grep SSH_AUTH_SOCK
+#     tmux -S $TMUX_SOCK setenv SSH_AUTH_SOCK $SSH_AUTH_SOCK
+#     echo -n 'tmux: '; tmux -S $TMUX_SOCK showenv | grep SSH_AUTH_SOCK
+#     fi
+# 
+#     local NEW_DISPLAY=$(tmux showenv | grep -E "^DISPLAY" | cut -d= -f2)
+#     if [[ -n $NEW_DISPLAY ]]; then
+#     print "Display: $NEW_DISPLAY"
+#     export DISPLAY=$NEW_DISPLAY
+#     fi
+# }
+# # Ensure that ssh-agent is alive
+# if [ ! "$(ps x | grep -v grep | grep ssh-agent)" ]; then
+#     eval $(ssh-agent -s)
+# 
+#     # Add keys to ssh auth
+#     for key in id_rsa github_rsa; do
+#         ssh-add -l | grep "$key" > /dev/null
+#         if [ $? -ne 0 ]; then
+#             ssh-add ~/.ssh/$key
+#         fi
+#     done
+# else # Check if ssh socket is lost and if so, refresh it
+#     ssh-add -l >/dev/null
+#     if [ $? -eq 2 ]; then
+#         ssh_refresh
+#     fi
+# fi
 
 # Fixes tmux issue where symlinks are expanded to canonical file names
 [ "x${PWD#/mnt/disk2/molmicro}" != "x$PWD" ] && cd /molmicro${PWD#/mnt/disk2/molmicro}
