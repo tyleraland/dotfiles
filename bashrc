@@ -2,8 +2,6 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-echo "HELLO"
-
 if [ -f ~/.bash_functions.sh ]; then
     source ~/.bash_functions.sh
 fi
