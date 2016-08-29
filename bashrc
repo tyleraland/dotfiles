@@ -202,3 +202,18 @@ fi
 
 # Fixes tmux issue where symlinks are expanded to canonical file names
 [ "x${PWD#/mnt/disk2/molmicro}" != "x$PWD" ] && cd /molmicro${PWD#/mnt/disk2/molmicro}
+
+# "mount cloud desktop" alias
+# https://groups.google.com/forum/#!topic/macfusion-devel/D3A8tyTsApw
+# https://w.amazon.com/index.php/VideoAds/Team/DevelopmentEnvironment/IntelliJOnMac#Mounting_Desktop_Drive
+alias mc='sshfs clouddev: ~/remote -p 22 -o reconnect,no_readahead,noappledouble,nolocalcaches,compression=no,ServerAliveInterval=1,transform_symlinks,follow_symlinks,uid=$(id -u),gid=$(id -g),allow_other'
+
+export PATH="/apollo/env/SDETools/bin:$PATH"
+
+# Add all the scripts in VideoAdsTeamUtils to your PATH.
+# Setup your machine for Perforce.
+# Set default aliases
+# And more (look at the source!)
+if [ $(uname) == "Darwin" ]; then
+    source /Users/ttyll/Code/VideoAdsTeamUtils/src/VideoAdsTeamUtils/shell/videoads.env
+fi
