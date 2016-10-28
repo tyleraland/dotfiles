@@ -141,8 +141,8 @@ if [[ $(uname -s) == "Darwin" ]]; then
     export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin"
 fi
 
-# Set up rbenv for homebrew
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+# # Set up rbenv for homebrew
+# if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # Ensure that ssh-agent is alive
 if [ ! "$(ps x | grep -v grep | grep ssh-agent)" ]; then
@@ -165,40 +165,61 @@ get_ssh_sock(){
     find /tmp/ssh-* -user $USER -name "agent.*" 2> /dev/null | head -1
 }
 
-ssh_refresh() {
-    echo shell: SSH_AUTH_SOCK=$SSH_AUTH_SOCK
-    export SSH_AUTH_SOCK=$(get_ssh_sock)
-    echo shell: SSH_AUTH_SOCK=$SSH_AUTH_SOCK
-    if [[ -n $TMUX ]]; then
-    TMUX_SOCK=$(echo $TMUX|cut -d , -f 1)
-    echo -n 'tmux: '; tmux -S $TMUX_SOCK showenv | grep SSH_AUTH_SOCK
-    tmux -S $TMUX_SOCK setenv SSH_AUTH_SOCK $SSH_AUTH_SOCK
-    echo -n 'tmux: '; tmux -S $TMUX_SOCK showenv | grep SSH_AUTH_SOCK
-    fi
-
-    local NEW_DISPLAY=$(tmux showenv | grep -E "^DISPLAY" | cut -d= -f2)
-    if [[ -n $NEW_DISPLAY ]]; then
-    print "Display: $NEW_DISPLAY"
-    export DISPLAY=$NEW_DISPLAY
-    fi
-}
-# Ensure that ssh-agent is alive
-if [ ! "$(ps x | grep -v grep | grep ssh-agent)" ]; then
-    eval $(ssh-agent -s)
-
-    # Add keys to ssh auth
-    for key in id_rsa github_rsa; do
-        ssh-add -l | grep "$key" > /dev/null
-        if [ $? -ne 0 ]; then
-            ssh-add ~/.ssh/$key
-        fi
-    done
-else # Check if ssh socket is lost and if so, refresh it
-    ssh-add -l >/dev/null
-    if [ $? -eq 2 ]; then
-        ssh_refresh
-    fi
-fi
+# ssh_refresh() {
+#     echo shell: SSH_AUTH_SOCK=$SSH_AUTH_SOCK
+#     export SSH_AUTH_SOCK=$(get_ssh_sock)
+#     echo shell: SSH_AUTH_SOCK=$SSH_AUTH_SOCK
+#     if [[ -n $TMUX ]]; then
+#     TMUX_SOCK=$(echo $TMUX|cut -d , -f 1)
+#     echo -n 'tmux: '; tmux -S $TMUX_SOCK showenv | grep SSH_AUTH_SOCK
+#     tmux -S $TMUX_SOCK setenv SSH_AUTH_SOCK $SSH_AUTH_SOCK
+#     echo -n 'tmux: '; tmux -S $TMUX_SOCK showenv | grep SSH_AUTH_SOCK
+#     fi
+# 
+#     local NEW_DISPLAY=$(tmux showenv | grep -E "^DISPLAY" | cut -d= -f2)
+#     if [[ -n $NEW_DISPLAY ]]; then
+#     print "Display: $NEW_DISPLAY"
+#     export DISPLAY=$NEW_DISPLAY
+#     fi
+# }
+# # Ensure that ssh-agent is alive
+# if [ ! "$(ps x | grep -v grep | grep ssh-agent)" ]; then
+#     eval $(ssh-agent -s)
+# 
+#     # Add keys to ssh auth
+#     for key in id_rsa github_rsa; do
+#         ssh-add -l | grep "$key" > /dev/null
+#         if [ $? -ne 0 ]; then
+#             ssh-add ~/.ssh/$key
+#         fi
+#     done
+# else # Check if ssh socket is lost and if so, refresh it
+#     ssh-add -l >/dev/null
+#     if [ $? -eq 2 ]; then
+#         ssh_refresh
+#     fi
+# fi
 
 # Fixes tmux issue where symlinks are expanded to canonical file names
 [ "x${PWD#/mnt/disk2/molmicro}" != "x$PWD" ] && cd /molmicro${PWD#/mnt/disk2/molmicro}
+
+# "mount cloud desktop" alias
+# https://groups.google.com/forum/#!topic/macfusion-devel/D3A8tyTsApw
+# https://w.amazon.com/index.php/VideoAds/Team/DevelopmentEnvironment/IntelliJOnMac#Mounting_Desktop_Drive
+alias mc='sshfs clouddev: ~/remote -p 22 -o reconnect,no_readahead,noappledouble,nolocalcaches,compression=no,ServerAliveInterval=1,transform_symlinks,follow_symlinks,uid=$(id -u),gid=$(id -g),allow_other'
+
+export PATH="/apollo/env/SDETools/bin:$PATH"
+
+# Add all the scripts in VideoAdsTeamUtils to your PATH.
+# Setup your machine for Perforce.
+# Set default aliases
+# And more (look at the source!)
+if [ $(uname) == "Darwin" ]; then
+    source /Users/ttyll/Code/VideoAdsTeamUtils/src/VideoAdsTeamUtils/shell/videoads.env
+fi
+
+PATH="/Users/ttyll/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/Users/ttyll/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/Users/ttyll/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/Users/ttyll/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/ttyll/perl5"; export PERL_MM_OPT;

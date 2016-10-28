@@ -1,11 +1,19 @@
 [user]
 	name = Tyler A Land
-	email = tland9@uw.edu
+	email = ttyll@amazon.com
 [core]
 	editor = vim
     ignorecase = true
+	pager = less -FMRiX
 [merge]
 	tool = vimdiff
 [color]
     ui = true
 
+[push]
+	default = simple
+[alias]
+	dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
+[amazon]
+	append-cr-url = true
+	pull-request-by-default = true

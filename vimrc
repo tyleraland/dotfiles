@@ -79,12 +79,16 @@ if has('gui_macvim')
     set guifont=Monaco:h15
     set norelativenumber
     set spell "spellcheck
-    autocmd vimenter * NERDTree " Open NERDTree on startup
+"    autocmd vimenter * NERDTree " Open NERDTree on startup
     " Close vim if the only window left is NERDTree
 "    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 "    # I prefer Solarized Light in MacVim
     set background=light
+"    let date:system("dt")
+"    e ! date "+\%Y-\%m-\%d"
+"    e ! execute("!date +\\%Y")
+"    e DEFAULT
 endif
 
 if $TMUX == ''
