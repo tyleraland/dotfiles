@@ -171,11 +171,13 @@ hs.hotkey.bind(ch,"Q", function () hs.reload() end)
 
 ----- Call specific applications
 hs.hotkey.bind(ch,"Y", function() call_app("firefox") end)
+hs.hotkey.bind(ch,"C", function() call_app("chrome") end)
 hs.hotkey.bind(ch,"I", function() call_app("iTerm2") end)
 hs.hotkey.bind(ch,"O", function() call_app("MacVim") end)
+hs.hotkey.bind(ch,"E", function() call_app("Evernote") end)
 hs.hotkey.bind(ch,"F", function() call_app("Finder") end)
 hs.hotkey.bind(ch,"P", function() call_app("Preview") end)
-hs.hotkey.bind(ch,"U", function() call_app("Spotify") end)
+hs.hotkey.bind(ch,"Y", function() call_app("Spotify") end)
 hs.hotkey.bind(ch,";", function() call_app("Microsoft Outlook") end)
 -----
 
@@ -234,4 +236,3 @@ hs.hotkey.bind(ch, ",", function() experiment() end)
 
 -- hs.alert.show("Hammerspoon config loaded")
 hs.notify.new({title="Hammerspoon", informativeText="Config loaded"}):send()
-

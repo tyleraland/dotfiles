@@ -18,10 +18,16 @@ for file in $files; do
         mv ~/.$file $BAK/$file.old
     fi
     # If file in manifest is in our repo, then create a symlink to it in home with . prefix
+    # echo $SRC/$file
+
     if [[ -f $SRC/$file ]]; then
         ln -sf $SRC/$file ~/.$file
+        echo ln -sf $SRC/$file ~/.$file
     elif [[ -d $SRC/$file && ! -L ~/.$file ]]; then # Same for directories
         ln -sF $SRC/$file ~/.$file
+        echo ln -sF $SRC/$file ~/.$file
+    else
+        echo Did not process $file
     fi
 done
 
