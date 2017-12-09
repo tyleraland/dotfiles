@@ -125,8 +125,8 @@ fi
 
 # PATHs
 
-# /usr/local/bin, then /usr/bin/
-PATH=/usr/local/bin:/usr/local/sbin:~/bin:$PATH
+# # /usr/local/bin, then /usr/bin/
+# PATH=/usr/local/bin:/usr/local/sbin:~/bin:$PATH
 
 if [[ $(uname -s) == "Darwin" ]]; then
     export JAVA_HOME=$(/usr/libexec/java_home)
@@ -208,7 +208,8 @@ get_ssh_sock(){
 # https://w.amazon.com/index.php/VideoAds/Team/DevelopmentEnvironment/IntelliJOnMac#Mounting_Desktop_Drive
 alias mc='sshfs clouddev: ~/remote -p 22 -o reconnect,no_readahead,noappledouble,nolocalcaches,compression=no,ServerAliveInterval=1,transform_symlinks,follow_symlinks,uid=$(id -u),gid=$(id -g),allow_other'
 
-export PATH="/apollo/env/SDETools/bin:$PATH"
+# Already included as part of $BRAZIL_CLI_BIN from .bash_profile
+#export PATH="/apollo/env/SDETools/bin:$PATH"
 
 # Add all the scripts in VideoAdsTeamUtils to your PATH.
 # Setup your machine for Perforce.
@@ -218,8 +219,19 @@ if [ $(uname) == "Darwin" ]; then
     source /Users/ttyll/Code/VideoAdsTeamUtils/src/VideoAdsTeamUtils/shell/videoads.env
 fi
 
-PATH="/Users/ttyll/perl5/bin${PATH:+:${PATH}}"; export PATH;
+#PATH="/Users/ttyll/perl5/bin${PATH:+:${PATH}}:~/bin"; export PATH;
+PATH="/Users/ttyll/perl5/bin:${PATH}:~/bin"; export PATH;
 PERL5LIB="/Users/ttyll/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 PERL_LOCAL_LIB_ROOT="/Users/ttyll/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/Users/ttyll/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/ttyll/perl5"; export PERL_MM_OPT;
+
+# Gordion Knot https://w.amazon.com/index.php/GordianKnot/GettingStarted
+source ~/src/create-gk-aliases.sh
+
+# Node
+export NODE_BINARY_PATH=$(which node)
+export I_WANT_NO_DEVTOOLS_SUPPORT_NOW_AND_FOREVER=$NODE_BINARY_PATH
+
+# Airy
+export AIRY_HOME="/workplace/ttyll/airy3"

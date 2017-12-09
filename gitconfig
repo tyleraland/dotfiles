@@ -5,6 +5,7 @@
 	editor = vim
     ignorecase = true
 	pager = less -FMRiX
+	excludesfile = /Users/ttyll/.gitignore
 [merge]
 	tool = vimdiff
 [color]
